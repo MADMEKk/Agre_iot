@@ -20,4 +20,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('core.urls')),
     path('panel/', include('panel.urls'),name='panel'),
+    path('sparcels/',include('sous_parcel.urls'),name='sous'),
 ]

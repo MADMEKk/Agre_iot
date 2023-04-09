@@ -1,0 +1,35 @@
+{% extends 'panel/base.html' %}
+
+{% block title %}{{sparcel.name}} | {% endblock %}
+
+{% block content %}
+
+<div id="dash-content" class="bg-gray-200 py-6 lg:py-0 w-full lg:max-w-sm flex flex-wrap content-start">
+
+</div>
+<div id="main-content" class="w-full flex-1">
+    <div class="p-10 lg:p-20 text-center">
+        <h1 class="text-3xl lg:text-6xl text-white">{{sparcel.name}}</h1>
+    </div>
+    <div class=" text-center" id="Graph">
+        <h6 class="text-white">{{sparcel.name}}</h6>
+    </div>
+    
+</div>
+{{sparcel.name|json_script:"sparcel_id"}}
+<script>
+    const sparcel_id = JSON.parse(document.getElementById("sparcel_id").textContent);
+const sparcelsocket = new WebSocket(
+'ws://'
++ window.location.host
++'/ws/'
++ sparcel_id
++'/'
+);
+sparcelsocket.onmessage = function(e){
+    console.log('onmessage');
+}
+
+
+</script>
+{% endblock %}
