@@ -1,7 +1,6 @@
-from django.shortcuts import render 
-from .models import parcel
-from django.contrib.auth.decorators import login_required
-@login_required
+from django.shortcuts import render , redirect
+
+
 def frontpage(request):
     return render(request, 'panel/frontpage.html')
 
