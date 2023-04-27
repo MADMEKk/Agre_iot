@@ -50,10 +50,12 @@ class sparcelconsumer(AsyncWebsocketConsumer):
         capterid = event['capterid']
         value = event['value']
         sparcelid = event['sparcel']
+        captername = event['captername']
         await self.send(text_data=json.dumps({
              'value': value,
               'sparcel': sparcelid,
-              'capterid' : capterid
+              'capterid' : capterid,
+              'captername' : captername
         }))
 
 def send_sensor_data(capter_id,sparcel_id):
@@ -64,7 +66,6 @@ def send_sensor_data(capter_id,sparcel_id):
             """
             import time
             import random
-            import datetime
             from channels.layers import get_channel_layer
 
             # Get the channel layer
@@ -75,7 +76,7 @@ def send_sensor_data(capter_id,sparcel_id):
             while True:
                 # Generate some fake sensor data
                 
-                value = round(random.uniform(20.0, 30.0), 2)
+                value = round(random.randint(20.0, 30.0), 2)
                
                 
                 from datetime import timezone
@@ -86,13 +87,15 @@ def send_sensor_data(capter_id,sparcel_id):
                
                 capter_data.save()
                 # Send the sensor data to all connected clients via WebSocket
-         
+                capter= capteur.objects.get(pk=capter_id)
                 async_to_sync(channel_layer.group_send)(
                     group_name, 
                     {'type': 'sensor_data',
                      'value': value,
                     'sparcel': sparcel_id,
-                    'capterid' : capter_id}
+                    'capterid' : capter_id,
+                    'captername' : capter.name
+                    }
                     )
 
                 # Wait for a few seconds before sending more data
