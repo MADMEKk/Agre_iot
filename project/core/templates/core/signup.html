@@ -70,27 +70,28 @@
               <form method="post" action="." role="form text-left">
                 {% csrf_token %}
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="email-addon">
+                  <input type="text" name="username" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="email-addon">
                 </div>
                 <div class="mb-3">
-                  <input type="password" class="form-control" placeholder="Password" aria-label="Password1" aria-describedby="password-addon">
+                  <input type="password" name="password1" class="form-control" placeholder="Password" aria-label="Password1" aria-describedby="password-addon">
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Repeter password" aria-label="Password2" aria-describedby="password-addon">
+                    <input type="password" name="password2" class="form-control" placeholder="Repeter password" aria-label="Password2" aria-describedby="password-addon">
                   </div>
-                  {% if form.errors %}
-                  {% for field in form %}
-                      {% for error in field.errors %} 
-                          <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
-                              <p>{{ error|escape }}</p>
-                          </div>
-                      {% endfor %}
-                  {% endfor %}
-              {% endif %}
-          
+            
                 <div class="text-center">
-                  <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                  <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
                 </div>
+                {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %} 
+                        <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
+                            <p>{{ error|escape }}</p>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        
                 <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login/" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
             </div>

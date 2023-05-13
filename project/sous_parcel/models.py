@@ -6,11 +6,15 @@ class sous_parcel(models.Model):
     name = models.CharField(max_length=255)
     details= models.CharField(max_length=500)     
     parcel = models.ForeignKey(parcel, on_delete=models.CASCADE)
-    latitude = models.FloatField()
-    longitude = models.FloatField()
     def __str__(self):
         return self.name
 
+class dispo_capteurs(models.Model):
+    name = models.CharField(max_length=255)
+    details= models.CharField(max_length=500)
+    img = models.CharField(max_length=500)
+    def __str__(self):
+        return self.name
 
 class capteur(models.Model):
     name = models.CharField(max_length=255)
@@ -18,6 +22,7 @@ class capteur(models.Model):
     sous_parcel = models.ForeignKey(sous_parcel, on_delete=models.CASCADE)
     latitude = models.FloatField()
     longitude = models.FloatField()
+    img = models.CharField(max_length=500)
     def __str__(self):
         return self.name
 

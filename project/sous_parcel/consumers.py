@@ -3,7 +3,6 @@ from asgiref.sync import async_to_sync
 from .models import *
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
-from asgiref.sync import sync_to_async
 class sparcelconsumer(AsyncWebsocketConsumer):
     async def connect(self):
         sparcel_id = self.scope['url_route']['kwargs']['sparcel_id']
@@ -20,31 +19,9 @@ class sparcelconsumer(AsyncWebsocketConsumer):
             self.channel_name
         )
         
-    async def receive(self, text_data):
+    async def receive(self):
          pass
-    #    data = json.loads(text_data)
-    #    capterid = data['id']
-    #    value = data['value']
-    #    sparcelid = data['sparcel']
-    #    await self.channel_layer.group_send(
-    #        self.room_group_name,
-    #        {
-    #            'type': 'chat_message',
-    #           'value': value,
-    #           'sparcel': sparcelid,
-    #           'capterid' : capterid
-    #        }
-    #    )
-    
-    # async def chat_message(self, event):
-    #     capterid = event['capterid']
-    #     value = event['value']
-    #     sparcelid = event['sparcel']
-    #     await self.send(text_data=json.dumps({
-    #          'value': value,
-    #           'sparcel': sparcelid,
-    #           'capterid' : capterid
-    #     }))
+   
     async def sensor_data(self, event):
         # Send the sensor data to all connected clients
         capterid = event['capterid']
@@ -59,11 +36,7 @@ class sparcelconsumer(AsyncWebsocketConsumer):
         }))
 
 def send_sensor_data(capter_id,sparcel_id):
-            """
-            This function simulates sending sensor data to the web app.
-            In a real-world scenario, this function would read sensor data
-            from a physical device.
-            """
+         
             import time
             import random
             from channels.layers import get_channel_layer

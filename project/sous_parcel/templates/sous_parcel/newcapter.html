@@ -1,16 +1,125 @@
 {% extends 'panel/base.html' %}
-
+{% load static %}
 {% block title %}newcapter| {% endblock %}
 
 {% block content %}
 
-<div id="dash-content" class="bg-gray-200 py-6 lg:py-0 w-full lg:max-w-sm flex flex-wrap content-start">
+    <div class="container">
 
-    <form method="post" action="." class="lg:w-1/4 px-4 mx-auto">
-        {% csrf_token %}
-            {{form}}
-    </form>
+        <div class="row">
+          {% for disp in dispo %}
+          <div class="col-md-3 col-lg-3 col mt-3">
+            <div class="card">
+              <img id="{{disp.id}}" src="{% static 'img/small-logos/'|add:disp.img|add:''%}" class="card-img-top w-25 h-25 mx-auto" alt="...">
+              <div class="card-body">
+                <h5 class="card-title"> {{disp.name}} </h5>
+                <p class="card-text"> {{disp.details}} </p>
+                <a href="#" onclick="ajouterCApter( `{{disp.img}}`,`{{disp.name}}`,`{{disp.details}}`,`{{disp.id}}` )" class="btn btn-info">Select</a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+          
+         
+          
+          
+        </div>
+        <div class="row mt-4 mb-4">
+          <div class="col-xl-4 col-lg-5 col-md-7 ">
+            <div class="card " id="formimg">
+              <div class="card-body">
+                <form method="post" action="." role="form text-left">
+                  {% csrf_token %}
+                  
+                  <div class="mb-3">
+                    <input type="text" name="name" class="form-control" id="form-name" placeholder="Name" aria-label="Name" >
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="details" id="form-details"  placeholder="details" aria-label="Email" >
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" name="img" class="form-control" id="form-img" placeholder="img" aria-label="img" >
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="latitude" id="form-Latitude" placeholder="Latitude" aria-label="Password" >
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="longitude" id="form-Longitude" placeholder="Longitude" aria-label="Password" >
+                  </div>
+                  <div class="mb-3">
+                    {{form.sous_parcel}}
+                  </div>
+                 
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col">  
+               <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
     
-</div>
+                <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+                
+                <div id="map"></div>
 
+        </div>
+  </div>
+
+  <script>
+
+    function ajouterCApter(img,name,details,id){
+      document.getElementById("form-name").value=name;
+      document.getElementById("form-details").value=details;
+      document.getElementById("form-img").value=img;
+      formimg=document.getElementById("formimg");
+      
+      image=document.getElementById(id);
+      var imgCopy = image.cloneNode(true);
+      console.log(image);
+      formimg.replaceChild(imgCopy, formimg.firstChild);
+    }
+    
+    </script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script>
+      // All the code for the leaflet map will come here
+      parloc = {{parcel_loc|safe}};
+      console.log(parloc.location[1].lat);
+    const map = L.map('map').setView([parloc.location[1].lat, parloc.location[1].long], 14);
+    const basemaps = {
+        StreetView: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',   {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
+      };
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+      const marker1 = L.marker([-37.699450, 176.279420]).bindPopup('Turquoise Bay Exmouth, Australia').addTo(map);
+      var locationArray = [];
+
+      for (let key in parloc.location) {
+        const lat = parseFloat(parloc.location[key].lat);
+        const long = parseFloat(parloc.location[key].long);
+        locationArray.push([lat, long]);
+      }
+        var polygon = L.polygon([
+          locationArray
+         
+      ]).addTo(map);;
+      L.control.layers(basemaps).addTo(map);
+      basemaps.StreetView.addTo(map);
+      var popup = L.popup();
+    
+    function onMapClick(e) {
+      document.getElementById("form-Latitude").value=e.latlng.lat;
+      document.getElementById("form-Longitude").value=e.latlng.lng;
+        popup
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(map);
+    }
+    
+    map.on('click', onMapClick);
+    
+    
+    
+    </script>
 {% endblock %}

@@ -9,7 +9,6 @@ from django.contrib.auth.decorators import user_passes_test
 @user_passes_test(lambda u: not u.is_authenticated, login_url='panel:frontpage')
 def frontpage(request):
     return render(request, 'core/frontpage.html')
-
 @user_passes_test(lambda u: not u.is_authenticated, login_url='panel:frontpage')
 def signup(request):
     if request.method == 'POST':
