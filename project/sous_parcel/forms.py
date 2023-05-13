@@ -6,7 +6,6 @@ class creeSparceleForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(creeSparceleForm, self).__init__(*args, **kwargs)
         self.fields['parcel'].queryset = parcel.objects.filter(user=user)
-
     class Meta:
         model = sous_parcel
         fields = '__all__'

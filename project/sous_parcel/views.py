@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import HttpResponseRedirect
 from .forms import creeSparceleForm,creeCApterForm
 from .models import *
 from panel.models import parcel
@@ -16,7 +17,7 @@ def run_capter(request):
             data = json.loads(request.body)
             capterid = data.get('capterid', None) 
             sparcelid = data.get('sparcelid', None) 
-            Thread(target=send_sensor_data,args=(capterid,sparcelid)).start()
+            Thread(target=send_sensor_data,args=(capterid,sparcelid,request.user.id)).start()
             return JsonResponse({'status': 'success'})
     else:
             return JsonResponse({'status': 'error', 'message': 'Invalid request method'})
@@ -89,7 +90,9 @@ def cree_capter(request,sparcelid):
                         sous_parcel = form.cleaned_data["sous_parcel"],
                     )
             new_capter.save()
-            return JsonResponse({'status': 'success'})
+            context = {'status': 'success'}
+            return redirect('sous_parcel:sparcel',sparcelid)
+
         else:  return JsonResponse({'status': 'failed'})
     else:
         form = creeCApterForm(sparcelid)

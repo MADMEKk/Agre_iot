@@ -11,8 +11,15 @@ class parcel(models.Model):
     def __str__(self):
         return self.name
 
-
-
+# class notification(models.Model):
+    
+#     paramètre = models.CharField(max_length=255)
+#     valeur_dépassé= models.CharField(max_length=500)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     date = models.DateTimeField(auto_now_add=True)
+#     def __str__(self):
+#         return self.name
+    
 class Profile(models.Model):   
     # mobile =models.CharField(max_length=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE)

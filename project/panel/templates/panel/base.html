@@ -530,7 +530,7 @@
                 </a>
                 <ul
                   class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
-                  aria-labelledby="dropdownMenuButton"
+                  aria-labelledby="dropdownMenuButton" id="notifications"
                 >
                   <li class="mb-2">
                     <a
@@ -540,7 +540,7 @@
                       <div class="d-flex py-1">
                         <div class="my-auto">
                           <img
-                            src="..{% static 'img/team-2.jpg'%}"
+                            src="{% static 'img/team-2.jpg'%}"
                             class="avatar avatar-sm me-3"
                           />
                         </div>
@@ -871,6 +871,56 @@
         };
         Scrollbar.init(document.querySelector("#sidenav-scrollbar"), options);
       }
+    </script>
+    <script>
+      user = {{ request.user.id | safe }}
+      const usersocket = new WebSocket(
+        'ws://'
+        + window.location.host
+        +'/wsuser/'
+        + user
+        +'/'
+        );
+        usersocket.onmessage = function(e){
+            const data = JSON.parse(e.data);
+            if(data.value){
+              console.log(data)
+              not= `<a
+                  class="dropdown-item border-radius-md"
+                  href="http://127.0.0.1:8000/sparcels/sparcel/${data.sparcel}"
+                >
+                  <div class="d-flex py-1">
+                    <div class="my-auto">
+                      <img
+                        src="{% static 'img/team-2.jpg'%}"
+                        class="avatar avatar-sm me-3"
+                      />
+                    </div>
+                    <div class="d-flex flex-column justify-content-center">
+                      <h6 class="text-sm font-weight-normal mb-1">
+                        <span class="font-weight-bold">Valeur depase</span>
+                        ${data.captername}
+                      </h6>
+                      <p class="text-xs text-secondary mb-0">
+                        <i class="fa fa-clock me-1"></i>
+                      </p>
+                    </div>
+                  </div>
+                </a>            
+              `;        
+              const li = document.createElement("li");  
+              const att = document.createAttribute("class");
+              att.value = "mb-2";    
+              li.setAttributeNode(att);
+              li.innerHTML=not;
+
+              document.getElementById("notifications").appendChild(li); 
+            }else{
+                console.log('there is no value');
+            }
+        }
+
+
     </script>
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>

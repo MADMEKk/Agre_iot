@@ -1,0 +1,125 @@
+{% extends 'panel/base.html' %}
+{% load static %}
+{% block title %}New parcel| {% endblock %}
+
+{% block content %}
+
+    <div class="container">
+
+        <div class="row mt-4 mb-4">
+          <div class="col-xl-4 col-lg-5 col-md-7 ">
+            <div class="card " id="formimg">
+              <div class="card-body">
+                <form method="post" action="." role="form text-left">
+                  {% csrf_token %}
+                  
+                  <div class="mb-3">
+                    <input type="text" name="name" class="form-control" id="form-name" placeholder="Name" aria-label="Name" >
+                  </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="details" id="form-details"  placeholder="details" aria-label="Email" >
+                  </div>             
+                    <div class="mb-3">
+                      <input  type="text" class="form-control" name="location" id="form-location" placeholder="location"  >
+                      <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" id="print-button">print area</button>
+                      <button type="button" class="btn bg-gradient-dark w-100 my-4 mb-2" id="reset-button">reset</button>
+
+                    </div>
+                  <div class="text-center">
+                    <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col">  
+               <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
+    
+                <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+                
+                <div id="map"></div>
+
+        </div>
+  </div>
+
+  <script>
+   
+    function ajouterCApter(img,name,details,id){
+      document.getElementById("form-name").value=name;
+      document.getElementById("form-details").value=details;
+      formimg=document.getElementById("formimg");
+      
+      image=document.getElementById(id);
+      var imgCopy = image.cloneNode(true);
+      console.log(image);
+      formimg.replaceChild(imgCopy, formimg.firstChild);
+    }
+    
+    </script>
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
+    <script>
+      // All the code for the leaflet map will come here
+     
+    const map = L.map('map').setView([35.435610,-0.740729], 9);
+    const basemaps = {
+        StreetView: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',   {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
+      };
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+      const marker1 = L.marker([-37.699450, 176.279420]).bindPopup('Turquoise Bay Exmouth, Australia').addTo(map);
+    
+      L.control.layers(basemaps).addTo(map);
+      basemaps.StreetView.addTo(map);
+      var popup = L.popup();
+      var locationArray =[];
+      function onMapClick(e) {
+        var textarea = document.getElementById("form-location");
+        var text = textarea.value;
+        L.marker(e.latlng).addTo(map);
+
+        locationArray.push(e.latlng);
+        if (text !== "") {
+          var json = JSON.parse(text);
+          var key = Object.keys(json).length + 1;
+          json[key] = {
+            lat: e.latlng.lat,
+            long: e.latlng.lng
+          };
+          var newtext = JSON.stringify(json);
+          console.log(newtext);
+          
+        } else {
+          var newtext = `{"1": {"lat": "${e.latlng.lat}", "long": "${e.latlng.lng}"}}`;
+          console.log(newtext);
+        }
+        textarea.value = newtext;
+        
+      }
+      
+      map.on('click', onMapClick);
+      
+      function clearMap() {
+        map.eachLayer(function (layer) {
+          if (layer !== map) {
+            map.removeLayer(layer);
+          }
+        });
+      }
+      function printarea(){
+         var polygon = L.polygon(locationArray, { color: 'red' }).addTo(map);
+
+      
+      }
+      function resetmap(){
+        document.getElementById("form-location").value="";
+        clearMap();
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
+
+        map.setView([35.435610,-0.740729], 9);
+      }
+      var resetButton = document.getElementById('reset-button');
+      var printButton = document.getElementById('print-button');
+      resetButton.addEventListener('click', resetmap);
+      printButton.addEventListener('click', printarea);
+    
+    </script>
+{% endblock %}

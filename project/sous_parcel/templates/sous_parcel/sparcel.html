@@ -13,16 +13,31 @@
           <div class="row">
             {% for capter in capters_list %}
             <div class="col-xl-3 col-md-6 mb-xl-0 mb-4">
-              <div class="card bg-secondary" style="width: 18rem">
+              <div class="card bg-secondary" >
+               <div class="row">
                 <img
-                  src="{% static 'img/small-logos/'|add:capter.img|add:''%}"
-                  style="max-height: 50px;max-width: 50px; "
-                  class="card-img-top mt-3 "
-                  alt="..."
-                />
+                src="{% static 'img/small-logos/'|add:capter.img|add:''%}"
+                style="max-height: 50px;max-width: 60px; "
+                class="card-img-top mt-3 col ms-2"
+              />
+              <h5 class="card-title col  mt-3 mx-auto  text-white"> {{capter.name}} </h5>
+              <div class="d-grid gap-2 d-md-block col">
+                <button class="btn btn-success" onclick="run_capter({{capter.id}},{{sparcel.id}})"  type="button">ON</button>
+              </div>               </div>
                 <div class="card-body">
-                  <h1 class="card-text text-white" id="{{capter.id}}">0</h1>
-                  <span class="card-text text-white"> {{capter.name}} </span>
+                  <div class="row">           
+                      <span class=" text-white col" >value:</span>
+                        <h5 class="card-text text-white col" id="{{capter.id}}">0</h5>
+                  </div>
+                  <div class="row">                
+                    <span class=" text-white col" >temperature:</span>
+                      <h5 class="card-text text-white col" id="temp-{{capter.id}}">0</h5>
+                  </div>
+                  <div class="row">               
+                    <span class=" text-white col" >voltage:</span>
+                       <h5 class="card-text text-white col" id="vol-{{capter.id}}">0</h5>
+                  </div>
+                  
                 </div>
               </div>
             </div>
@@ -230,7 +245,7 @@
   </script>
 
   <script>
-   
+    
 var locationArray = [];
 
 for (let key in parloc) {
@@ -436,6 +451,9 @@ for (let key in parloc) {
           const data = JSON.parse(e.data);
           if(data.value){
             document.getElementById(data.capterid).innerHTML= data.value;
+            document.getElementById("temp-"+data.capterid).innerHTML= data.température;
+            document.getElementById("vol-"+data.capterid).innerHTML= data.voltage;
+            
             updateChart(data.value);
 
           }else{
@@ -444,9 +462,41 @@ for (let key in parloc) {
       }
   </script>
 
-  {% endblock %} {%block scripts %}
+ 
 
-  <script></script>
 
   {% endblock %}
 </div>
+{%block scripts %}
+<script>
+    function send_capterId(capterid,sparcelid){
+          
+            const data = {
+            capterid: capterid,
+            sparcelid: sparcelid,
+          csrfmiddlewaretoken:'{{ csrf_token }}',
+          action: "POST",
+             };
+        // Make a POST request to the Django view
+            fetch('{% url 'sous_parcel:runcapter' %}', {
+                method: 'POST',
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                // Handle the response
+            })
+            .catch(error => {
+                // Handle the error
+            });
+        
+      };
+    
+      function run_capter(capterid,sparcelid){
+        send_capterId(capterid,sparcelid);
+      };
+
+</script> 
+{% endblock %}
