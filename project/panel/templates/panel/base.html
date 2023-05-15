@@ -530,7 +530,7 @@
                 </a>
                 <ul
                   class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
-                  aria-labelledby="dropdownMenuButton" id="notifications"
+                  aria-labelledby="dropdownMenuButton" data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-offset="0" tabindex="0"  id="notifications"
                 >
                   <li class="mb-2">
                     <a
@@ -898,11 +898,11 @@
                     </div>
                     <div class="d-flex flex-column justify-content-center">
                       <h6 class="text-sm font-weight-normal mb-1">
-                        <span class="font-weight-bold">Valeur depase</span>
-                        ${data.captername}
+                        <span class="font-weight-bold">Valeur depase : ${data.value}<br/>Capteur : ${data.captername}</span>
+                        
                       </h6>
                       <p class="text-xs text-secondary mb-0">
-                        <i class="fa fa-clock me-1"></i>
+                        <i class="fa fa-clock me-1"></i> now
                       </p>
                     </div>
                   </div>
@@ -922,6 +922,47 @@
 
 
     </script>
+    <script>
+ 
+      fetch(` {% url 'panel:notifications' %}`)
+      .then(response => response.json())
+      .then(data => {
+        data.valeurs.forEach(datum => {
+          not= `<a
+          class="dropdown-item border-radius-md"
+          href="http://127.0.0.1:8000/sparcels/sparcel/${datum.onclick}"
+          >
+            <div class="d-flex py-1">
+              <div class="my-auto">
+                <img
+                  src="{% static 'img/team-2.jpg'%}"
+                  class="avatar avatar-sm me-3"
+                />
+              </div>
+              <div class="d-flex flex-column justify-content-center">
+                <h6 class="text-sm font-weight-normal mb-1">
+                  <span class="font-weight-bold">${datum.contenu}</span>
+                  
+                </h6>
+                <p class="text-xs text-secondary mb-0">
+                  <i class="fa fa-clock me-1"></i>${datum.date.slice(0,20)}
+                </p>
+              </div>
+            </div>
+          </a>            
+          `;        
+          const li = document.createElement("li");  
+          const att = document.createAttribute("class");
+          att.value = "mb-2";    
+          li.setAttributeNode(att);
+          li.innerHTML=not;
+          document.getElementById("notifications").appendChild(li);
+        }
+        )
+      })
+  
+  
+    </script> 
     <!-- Github buttons -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->

@@ -6,6 +6,7 @@ urlpatterns = [
 path('', views.frontpage, name='frontpage'),
 path('parcels/',views.parcels,name='parcels'),
 path('creatparcel/',views.cree_parcel,name='cree_parcel'),
+path('notifications/',views.notifications,name='notifications'),
 path('profile/',views.profile,name='profile')
 
 ]

@@ -2,12 +2,12 @@ from django.shortcuts import render , redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
-from .models import parcel,Profile
+from .models import parcel,notification
 from sous_parcel.models import sous_parcel ,capteur
 from django.contrib.auth.models import User
 from .forms import CreeParcelForm
 from django.http import JsonResponse
-
+import json
 def frontpage(request):
     current_user=request.user.id
     parcels =parcel.objects.filter(user_id=current_user)
@@ -52,3 +52,13 @@ def cree_parcel(request):
     else : 
         form = CreeParcelForm()
     return render(request,'panel/newparcel.html',{'form':form})
+
+
+@login_required
+@method_decorator(csrf_exempt, name='dispatch')
+def notifications(request):
+        valeurs = []
+        valeur = notification.objects.filter(user=request.user.id).values().order_by('-id')[:4]
+        val = list(valeur)
+        valeurs += val
+        return JsonResponse({'valeurs': valeurs})

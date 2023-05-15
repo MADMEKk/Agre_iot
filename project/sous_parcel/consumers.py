@@ -1,6 +1,7 @@
 import json
 from asgiref.sync import async_to_sync
 from .models import *
+from panel.models import notification
 from django.contrib.auth.models import User
 from channels.generic.websocket import AsyncWebsocketConsumer
 from django.core.serializers import serialize
@@ -65,6 +66,7 @@ class Userconsumer(AsyncWebsocketConsumer):
         value = event['value']
         sparcel = event['sparcel']
         captername = event['captername']
+        
         await self.send(text_data=json.dumps({
              'value': value,
              'sparcel':sparcel,
@@ -94,7 +96,6 @@ def send_sensor_data(capter_id,sparcel_id,user_id):
                 voltage = round(random.randint(20.0, 30.0), 2)
                 if(value>=val_max or value <= val_min):
                    
-                    
                     user_group_name= 'user_%d' % user_id
                     async_to_sync(channel_layer.group_send)(
                     user_group_name, 
@@ -104,8 +105,10 @@ def send_sensor_data(capter_id,sparcel_id,user_id):
                     'captername' : capter.name
                     }
                     )
-                        
-                from datetime import timezone
+                    user = User.objects.get(id=user_id)
+                    noti = notification(contenu="valeur depasse:  {} <br/> capteur:  {}".format(value,capter.name),onclick=sparcel_id)
+                    noti.user=user
+                    noti.save()
 
                 
                 # Save the sensor data to the database
