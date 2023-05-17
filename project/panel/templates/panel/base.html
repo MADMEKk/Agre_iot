@@ -914,7 +914,8 @@
               li.setAttributeNode(att);
               li.innerHTML=not;
 
-              document.getElementById("notifications").appendChild(li); 
+              parentElement=document.getElementById("notifications");
+              parentElement.insertBefore(li, parentElement.firstChild);
             }else{
                 console.log('there is no value');
             }
@@ -956,7 +957,8 @@
           att.value = "mb-2";    
           li.setAttributeNode(att);
           li.innerHTML=not;
-          document.getElementById("notifications").appendChild(li);
+          parentElement=document.getElementById("notifications");
+          parentElement.insertBefore(li, parentElement.firstChild);
         }
         )
       })

@@ -42,20 +42,6 @@
         </div>
   </div>
 
-  <script>
-   
-    function ajouterCApter(img,name,details,id){
-      document.getElementById("form-name").value=name;
-      document.getElementById("form-details").value=details;
-      formimg=document.getElementById("formimg");
-      
-      image=document.getElementById(id);
-      var imgCopy = image.cloneNode(true);
-      console.log(image);
-      formimg.replaceChild(imgCopy, formimg.firstChild);
-    }
-    
-    </script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script>
       // All the code for the leaflet map will come here
