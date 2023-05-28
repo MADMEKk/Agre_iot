@@ -21,9 +21,8 @@ class notification(models.Model):
         return self.name
     
 class Profile(models.Model):   
-    # mobile =models.CharField(max_length=10)
+    mobile =models.CharField(max_length=10)
+    nakwa =models.CharField(max_length=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     agrecardid = models.CharField(max_length=500)
-    # Nationalité=models.CharField(max_length=150)
-    # image = models.CharField(max_length=250)
-   
+    image = models.ImageField(null=True,blank=True)  
