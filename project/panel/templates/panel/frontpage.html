@@ -3,7 +3,7 @@
 
 
 {% block title %}Welcome | {% endblock %}
-{% block activelnk4 %}active{% endblock activelnk4 %}
+{% block activelnk1 %}active{% endblock activelnk1 %}
 {% block content %}
 
 <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('{% static 'img/vr-bg.jpg'%}') ; background-size: cover;">
@@ -26,27 +26,8 @@
             <div class="row mt-4">
               <div class="col-lg-4 col-md-4">
                 <div class="card move-on-hover overflow-hidden">
-                  <div class="card-body">
-                    <div class="d-flex">
-                      <h6 class="mb-0 me-3">08:00</h6>
-                      <h6 class="mb-0">Synk up with Mark
-                        <small class="text-secondary font-weight-normal">Hangouts</small>
-                      </h6>
-                    </div>
-                    <hr class="horizontal dark">
-                    <div class="d-flex">
-                      <h6 class="mb-0 me-3">09:30</h6>
-                      <h6 class="mb-0">Gym <br />
-                        <small class="text-secondary font-weight-normal">World Class</small>
-                      </h6>
-                    </div>
-                    <hr class="horizontal dark">
-                    <div class="d-flex">
-                      <h6 class="mb-0 me-3">11:00</h6>
-                      <h6 class="mb-0">Design Review<br />
-                        <small class="text-secondary font-weight-normal">Zoom</small>
-                      </h6>
-                    </div>
+                  <div class="card-body" id="bod">
+                 
                   </div>
                   <a href="javascript:;" class="bg-gray-100 w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
                     <i class="fas fa-chevron-down text-primary"></i>
@@ -104,6 +85,36 @@
   
  
 </script>
+<script>
+ 
+  fetch(` {% url 'panel:notifications' %}`)
+  .then(response => response.json())
+  .then(data => {
+    data.valeurs.forEach(datum => {
+      not= `
+      <div class="d-flex"       href="http://127.0.0.1:8000/sparcels/sparcel/${datum.onclick}"
+      >
+        <h6 class="mb-0 me-3">${datum.date.slice(15,20)}</h6>
+        <h6 class="mb-0">${datum.contenu}
+          <small class="text-secondary font-weight-normal">Hangouts</small>
+        </h6>
+      </div>   
+      <hr class="horizontal dark">
+     
+      `;        
+      const li = document.createElement("li");  
+      const att = document.createAttribute("class");
+      att.value = "mb-2";    
+      li.setAttributeNode(att);
+      li.innerHTML=not;
+      parentElement=document.getElementById("bod");
+      parentElement.insertBefore(li, parentElement.firstChild);
+    }
+    )
+  })
+
+
+</script> 
 {% endblock %}
 
 
