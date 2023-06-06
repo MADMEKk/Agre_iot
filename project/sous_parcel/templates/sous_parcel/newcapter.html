@@ -51,14 +51,7 @@
                   <div class="mb-3">
                     <input type="text" class="form-control" name="valeur_min" type="number" id="form-valeur_min" placeholder="valeur_min"  >
                   </div>
-                  <div class="mb-3">
-                    <select id="disabledSelect" name="sous_parcel" class="form-select">
-                        {% for sparcel in form.sous_parcel %}
-                        <option> {{sparcel}} </option>
-                        {% endfor %}
-                    </select>
-                    </div>
-                 
+                  
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
                   </div>

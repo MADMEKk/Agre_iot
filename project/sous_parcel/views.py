@@ -61,11 +61,20 @@ def capters(request,id):
 @method_decorator(csrf_exempt, name='dispatch')
 def cree_capter(request,sparcelid):
     if request.method == 'POST':
-        form = creeCApterForm(sparcelid,request.POST or None)
+        form = creeCApterForm(request.POST or None)
         if form.is_valid():
-            
-            form.save()
-           
+            new_capter = capteur(
+                        details = form.cleaned_data["details"],
+                        name = form.cleaned_data["name"],
+                        img = form.cleaned_data["img"],
+                        longitude = form.cleaned_data["longitude"],
+                        latitude = form.cleaned_data["latitude"],
+                        valeur_max = form.cleaned_data["valeur_max"],
+                        valeur_min = form.cleaned_data["valeur_min"],
+                        sous_parcel = sous_parcel.objects.get(pk=sparcelid) ,
+                    )
+            new_capter.save()
+            context = {'status': 'success'}
             return redirect('sous_parcel:sparcel',sparcelid)
 
         else:  return JsonResponse({'status': 'failed'})
