@@ -13,8 +13,6 @@
           <div class="card-body">
                 <form method="post" action="." role="form text-left">
                     {% csrf_token %}
-                    {{ form.as_p }}
-                {% comment %} {% csrf_token %}
                 <div class="mb-3">
                     <input type="text" name="name" class="form-control" placeholder="Name" aria-label="Name" >
                 </div>
@@ -23,14 +21,14 @@
                 </div>
                 <div class="mb-3">
                     <select id="disabledSelect" class="form-select">
-                        {% for parce in parcels %}
+                        {% for parcel in form.parcel %}
                         <option> {{parcel}} </option>
                         {% endfor %}
                     </select>
                     </div>
                     
                 <div class="text-center">
-                    <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                    <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
                 </div>
                 {% if form.errors %}
                 {% for field in form %}
@@ -42,7 +40,6 @@
                 {% endfor %}
             {% endif %}
         
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login/" class="text-dark font-weight-bolder">Sign in</a></p> {% endcomment %}
                 </form>
           </div>
         </div>

@@ -7,10 +7,10 @@
         <div class="card-header pb-0">
           <div class="row">
             <div class="col-lg-10 col-md">
-              <h6>Authors table</h6>
+              <h6>sous_parcels table</h6>
             </div>
             <div class="col-lg-2 col-md me-3">
-              <a href=" {% url 'sous_parcel:cree_sparcel' %}"><span class="badge badge-sm bg-gradient-success">add sous_parcel</span></a>
+              <a href=" {% url 'sous_parcel:cree_sparcel' %}"><span class="badge badge-sm bg-gradient-success">ajouter sous_parcel</span></a>
             </div>
           </div>
        </div>
@@ -22,22 +22,22 @@
                   <th
                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >
-                    Author
+                    nom
                   </th>
                   <th
                     class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                   >
-                    Function
+                  Details
                   </th>
                   <th
                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >
-                    Status
+                    
                   </th>
                   <th
                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >
-                    Employed
+                    
                   </th>
                   <th class="text-secondary opacity-7"></th>
                 </tr>
@@ -48,16 +48,12 @@
                   <td>
                     <div class="d-flex px-2 py-1">
                       <div>
-                        <img
-                          src="../assets/img/team-2.jpg"
-                          class="avatar avatar-sm me-3"
-                          alt="user1"
-                        />
+                      
                       </div>
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">{{sparcel.name}}</h6>
                         <p class="text-xs text-secondary mb-0">
-                          {{sparcel.id}}
+                          ID : {{sparcel.id}}
                         </p>
                       </div>
                     </div>

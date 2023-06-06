@@ -36,12 +36,8 @@ def cree_s_parcel(request):
         form = creeSparceleForm(request.user,request.POST)
 
         if form.is_valid():
-            new_sparcel = sous_parcel.objects.create(
-                    parcel = form.cleaned_data["parcel"],
-                    details = form.cleaned_data["details"],
-                    name = form.cleaned_data["name"],
-                )
-            new_sparcel.save()
+           
+            form.save()
             return JsonResponse({'status': 'success'})
         else:  return JsonResponse({'status': 'failed'})
     else:
