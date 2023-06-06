@@ -7,7 +7,6 @@ urlpatterns = [
     re_path('(?P<id>[\w-]+)/capters',views.capters,name='capters'),
     path('capter/run',views.run_capter,name='runcapter'),
     path('capters/valeurs',views.capters_values,name='capter_value'),
-    path('creatsparcel',views.cree_s_parcel,name='cree_sparcel'),
     path('creatcapter/<int:sparcelid>/',views.cree_capter,name='cree_capter'),
 ]
 

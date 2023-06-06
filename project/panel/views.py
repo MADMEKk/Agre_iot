@@ -4,8 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 from .models import parcel,notification,Profile
 from sous_parcel.models import sous_parcel ,capteur
-from django.contrib.auth.models import User
-from .forms import CreeParcelForm ,CreeProfileForm
+from .forms import CreeParcelForm ,CreeProfileForm,creeSparceleForm
 from django.http import JsonResponse
 import json
 def tables(request):
@@ -38,7 +37,7 @@ def userinfo(request):
 
 def profile(request):
     pr = request.user.id
-    if(Profile.objects.filter(user=pr).count() >=1):
+    if(Profile.objects.filter(user=pr).count()>0):
         profil = request.user.profile
         return render(request,'panel/profile.html',{'user': request.user,'profile':profil})
     else : 
@@ -68,19 +67,18 @@ def cree_parcel(request):
 @login_required
 @method_decorator(csrf_exempt, name='dispatch')
 def cree_profile(request):
-    user = request.user.profile
+    
     if request.method == 'POST':
-        form = CreeProfileForm(request.POST, request.FILES,instance=user)
+        
+        form = CreeProfileForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             context = {'status': 'success'}
             return JsonResponse(context)
-
         else:  return JsonResponse({'status': 'failed'})
-    else : 
-        form = CreeProfileForm(instance=user)
+    else :
+        form = CreeProfileForm()
     return render(request,'panel/creeprofile.html',{'form':form})
-
 
 @login_required
 @method_decorator(csrf_exempt, name='dispatch')
@@ -90,3 +88,18 @@ def notifications(request):
         val = list(valeur)
         valeurs += val
         return JsonResponse({'valeurs': valeurs})
+@login_required
+@method_decorator(csrf_exempt, name='dispatch')
+def cree_s_parcel(request):
+    if request.method == 'POST':
+        form = creeSparceleForm(request.user,request.POST)
+
+        if form.is_valid():
+           
+            form.save()
+            return redirect("panel:tables")
+        else:  return JsonResponse({'status': 'failed'})
+    else:
+        form = creeSparceleForm(request.user)
+    
+    return render(request, 'panel/newsparcel.html', {'form': form})

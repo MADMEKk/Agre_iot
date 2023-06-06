@@ -10,7 +10,7 @@
         <div class="row justify-content-center">
           <div class="col-lg-5 text-center mx-auto">
             <h1 class="text-white mb-2 mt-5">Welcome!</h1>
-            <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+            <p class="text-lead text-white"></p>
           </div>
         </div>
       </div>
@@ -33,7 +33,7 @@
                   <input type="text" name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="email">
                 </div>
                 <div class="mb-3">
-                  <input type="text" name="username" class="form-control" placeholder="Name" aria-label="Name" aria-describedby="email-addon">
+                  <input type="text" name="username" class="form-control" placeholder="UserName" aria-label="Name" aria-describedby="email-addon">
                 </div>
                 <div class="mb-3">
                   <input type="password" name="password1" class="form-control" placeholder="Password" aria-label="Password1" aria-describedby="password-addon">
@@ -45,21 +45,26 @@
                 <div class="text-center">
                   <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
                 </div>
-                {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %} 
-                        <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
-                            <p>{{ error|escape }}</p>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endif %}
+               
         
                 <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login/" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
             </div>
+            <div class="col">
+
+              {% if form.errors %}
+              {% for field in form %}
+                  {% for error in field.errors %} 
+                      <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
+                          <p>{{ error|escape }}</p>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+          {% endif %}
+            </div>
           </div>
         </div>
+        
       </div>
     </div>
   </section>

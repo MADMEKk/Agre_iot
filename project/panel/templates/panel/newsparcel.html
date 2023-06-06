@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <div class="container">
     <div class="row ">
       <div class="col-xl-4 col-lg-5 col-md-7 mx-auto">
@@ -20,7 +19,7 @@
                     <input type="details" name="details" class="form-control" placeholder="details" aria-label="details" >
                 </div>
                 <div class="mb-3">
-                    <select id="disabledSelect" class="form-select">
+                    <select id="disabledSelect" name="parcel" class="form-select">
                         {% for parcel in form.parcel %}
                         <option> {{parcel}} </option>
                         {% endfor %}
@@ -28,17 +27,9 @@
                     </div>
                     
                 <div class="text-center">
-                    <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
+                    <button type="submit" name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
                 </div>
-                {% if form.errors %}
-                {% for field in form %}
-                    {% for error in field.errors %} 
-                        <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
-                            <p>{{ error|escape }}</p>
-                        </div>
-                    {% endfor %}
-                {% endfor %}
-            {% endif %}
+               
         
                 </form>
           </div>

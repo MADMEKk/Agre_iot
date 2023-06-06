@@ -30,25 +30,34 @@
               <div class="card-body">
                 <form method="post" action="." role="form text-left">
                   {% csrf_token %}
-                  
                   <div class="mb-3">
-                    <input type="text" name="name" class="form-control" id="form-name" placeholder="Name" aria-label="Name" >
+                    <input type="text" name="name" class="form-control" id="form-name" placeholder="Name">
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" name="details" id="form-details"  placeholder="details" aria-label="Email" >
+                    <input type="text" class="form-control" name="details" id="form-details"  placeholder="details"  >
                   </div>
                   <div class="mb-3">
-                    <input type="text" name="img" class="form-control" id="form-img" placeholder="img" aria-label="img" >
+                    <input type="text" name="img" class="form-control" id="form-img" placeholder="img"  >
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" name="latitude" id="form-Latitude" placeholder="Latitude" aria-label="Password" >
+                    <input type="text" class="form-control" name="latitude" id="form-Latitude" type="number" placeholder="Latitude"  >
                   </div>
                   <div class="mb-3">
-                    <input type="text" class="form-control" name="longitude" id="form-Longitude" placeholder="Longitude" aria-label="Password" >
+                    <input type="text" class="form-control" name="longitude" id="form-Longitude" type="number" placeholder="Longitude"  >
                   </div>
                   <div class="mb-3">
-                    {{form.sous_parcel}}
+                    <input type="text" class="form-control" name="valeur_max" type="number" id="form-valeur_max" placeholder="valeur_max"  >
                   </div>
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="valeur_min" type="number" id="form-valeur_min" placeholder="valeur_min"  >
+                  </div>
+                  <div class="mb-3">
+                    <select id="disabledSelect" name="sous_parcel" class="form-select">
+                        {% for sparcel in form.sous_parcel %}
+                        <option> {{sparcel}} </option>
+                        {% endfor %}
+                    </select>
+                    </div>
                  
                   <div class="text-center">
                     <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">submit</button>
