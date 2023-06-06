@@ -4,6 +4,10 @@
    * Copyright 2011-2022 Twitter, Inc.
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    */
+   /* custom style */
+   
+
+   /* custom style */
 :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;
@@ -21720,7 +21724,7 @@ label,
 }
 
 .bg-gradient-primary {
-  background-image: linear-gradient(310deg, #7928CA 0%, #FF0080 100%);
+  background-image: linear-gradient(310deg, #7928CA -26%, #74FF83 100%);
 }
 
 .bg-gradient-secondary {
@@ -22587,7 +22591,7 @@ html {
 .navbar-vertical.navbar-expand-xs .navbar-collapse {
   display: block;
   overflow: auto;
-  height: calc(100vh - 360px);
+  height: calc(80vh - 0px);
 }
 
 .navbar-vertical.navbar-expand-xs>[class*="container"] {
@@ -23304,7 +23308,7 @@ html {
 
 .navbar-vertical .navbar-nav .nav-link.active {
   font-weight: 600;
-  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.05);
+  box-shadow: 0 20px 27px 0 rgba(0, 0, 0, 0.18);
   border-radius: 0.5rem;
 }
 
@@ -23314,7 +23318,7 @@ html {
 }
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon {
-  background-image: linear-gradient(310deg, #cb0c9f 0%, #cb0c9f 100%);
+  background-image: linear-gradient(310deg, #0ccb21 0%, #36cb0c 100%);
 }
 
 .navbar-vertical .navbar-nav>.nav-item .nav-link.active .icon svg .color-background,
@@ -23607,7 +23611,7 @@ html {
 }
 
 .navbar-vertical .navbar-nav .nav-item .nav-link .icon i {
-  color: #141727;
+  color: #3e9932;;
 }
 
 .navbar-vertical .navbar-nav .nav-item .nav-link .icon i {
@@ -26676,5 +26680,17 @@ pre[class*="language-"] {
     overflow: auto !important;
   }
 }
+
+
+
+
+
+
+
+
+
+/* custom */
+
+/* custom */
 
 /*# sourceMappingURL=dashboard-free.css.map */

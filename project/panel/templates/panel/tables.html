@@ -1,5 +1,6 @@
 {% extends 'panel/base.html' %} {% block content %}
 {% load static %}
+{% block activelnk3 %}active{% endblock activelnk3 %}
 
 <div class="container-fluid py-4">
   <div class="row">
@@ -33,7 +34,7 @@
                   <th
                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                   >
-                    0
+                   
                   </th>
                   <th
                     class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
@@ -48,13 +49,7 @@
                 <tr>
                   <td>
                     <div class="d-flex px-2 py-1">
-                      <div>
-                        <img
-                          src="../assets/img/team-2.jpg"
-                          class="avatar avatar-sm me-3"
-                          alt="user1"
-                        />
-                      </div>
+                      
                       <div class="d-flex flex-column justify-content-center">
                         <h6 class="mb-0 text-sm">{{sparcel.name}}</h6>
                         <p class="text-xs text-secondary mb-0">
@@ -81,16 +76,7 @@
                       > {{sparcel.parcel}} </span
                     >
                   </td>
-                  <td class="align-middle">
-                    <a
-                      href="javascript:;"
-                      class="text-secondary font-weight-bold text-xs"
-                      data-toggle="tooltip"
-                      data-original-title="Edit user"
-                    >
-                      Edit
-                    </a>
-                  </td>
+                  
                 </tr>
                 {% endfor %}
               </tbody>
@@ -145,13 +131,7 @@
                   <tr>
                     <td>
                       <div class="d-flex px-2 py-1">
-                        <div>
-                          <img
-                            src="../assets/img/team-2.jpg"
-                            class="avatar avatar-sm me-3"
-                            alt="user1"
-                          />
-                        </div>
+                        
                         <div class="d-flex flex-column justify-content-center">
                           <h6 class="mb-0 text-sm">{{sparcel.name}}</h6>
                           <p class="text-xs text-secondary mb-0">
@@ -222,12 +202,12 @@
                     <th
                       class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2"
                     >
-                      Function
+                      details
                     </th>
                     <th
                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
                     >
-                      Status
+                      
                     </th>
                     <th
                       class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"
@@ -244,7 +224,7 @@
                       <div class="d-flex px-2 py-1">
                         <div>
                           <img
-                            src="{% static 'img/small-logos/'|add:sparcel.img|add:' %}"
+                            src="{% static 'img/small-logos/'|add:sparcel.img|add:'' %}"
                             class="avatar avatar-sm me-3"
                             alt="user1"
                           />
@@ -275,16 +255,7 @@
                         > {{sparcel.sous_parcel}} </span
                       >
                     </td>
-                    <td class="align-middle">
-                      <a
-                        href="javascript:;"
-                        class="text-secondary font-weight-bold text-xs"
-                        data-toggle="tooltip"
-                        data-original-title="Edit user"
-                      >
-                        Edit
-                      </a>
-                    </td>
+                    
                   </tr>
                   {% endfor %}
                 </tbody>

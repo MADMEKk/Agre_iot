@@ -58,7 +58,7 @@ def cree_parcel(request):
                     )
             new_parcel.save()
             context = {'status': 'success'}
-            return JsonResponse({'status': 'succes'})
+            return redirect("panel:parcels")
 
         else:  return JsonResponse({'status': 'failed'})
     else : 

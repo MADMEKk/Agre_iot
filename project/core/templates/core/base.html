@@ -4,8 +4,8 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/apple-icon.png'%}">
-<link rel="icon" type="image/png" href="{% static 'img/favicon.png'%}">
+<link rel="apple-touch-icon" sizes="76x76" href="{% static 'img/logo.png'%}">
+<link rel="icon" type="image/png" href="{% static 'img/logo.png'%}">
 <title>
   
     {% block title %}{% endblock %}DjangoAgre
@@ -23,12 +23,12 @@
 
 <link id="pagestyle" href="{% static 'css/soft-ui-dashboard.css'%}?v=1.0.7" rel="stylesheet" />
 </head>
-    <body class="bg-teal-600">                  
+    <body class="bg-teal-600">                
                     <div class="container position-sticky z-index-sticky top-0">
                         <div class="row">
                           <div class="col-12">
                             <!-- Navbar -->
-                            <nav class="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+                            <nav class  ="navbar navbar-expand-lg blur blur-rounded top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
                               <div class="container-fluid pe-0">
                                 <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
                                   SMART M.M.A.D FARM
@@ -43,9 +43,9 @@
                                 <div class="collapse navbar-collapse" id="navigation">
                                   <ul class="navbar-nav mx-auto ms-xl-auto me-xl-7">
                                     <li class="nav-item">
-                                      <a class="nav-link me-2" href="  ">
-                                        <i class="fa fa-user opacity-6 text-dark me-1"></i>
-                                        About US
+                                      <a class="nav-link me-2" href=" {% url 'core:frontpage' %} ">
+                                        <i class="fa fa-home opacity-6 text-dark me-1"></i>
+                                        Home
                                       </a>
                                     </li>
                                     <li class="nav-item">
@@ -76,6 +76,10 @@
 {% endblock %}
         
     </main>
+
+{% block front %}
+
+{% endblock %}
 <footer class="footer py-5">
     <div class="container">
       <div class="row">

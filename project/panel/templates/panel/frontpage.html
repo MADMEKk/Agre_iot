@@ -11,50 +11,42 @@
   <main class="main-content mt-1 border-radius-lg">
     <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-7">
       <div class="container">
-        <div class="row pt-10">
+        <div class="row pt-6 ">
 
           <div class="col-lg-8 col-md-11">
             <div class="d-flex">
-              <div class="me-auto">
+              <div class="me-0">
                 <h1 class="display-1 font-weight-bold mt-n4 mb-0 text-white" id="temp">20</h1>
                 <h6 class="text-uppercase mb-0 ms-1 text-white">Cloudy</h6>
               </div>
-              <div class="ms-auto">
+              <div class="ms-0">
                 <img class="w-50 float-end mt-lg-n4" src="{% static 'img/small-logos/icon-sun-cloud.png'%}" alt="image sun">
               </div>
             </div>
-            <div class="row mt-4">
-              <div class="col-lg-4 col-md-4">
-                <div class="card move-on-hover overflow-hidden">
-                  <div class="card-body" id="bod">
-                 
-                  </div>
-                  <a href="javascript:;" class="bg-gray-100 w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
-                    <i class="fas fa-chevron-down text-primary"></i>
-                  </a>
-                </div>
-              </div>
-              <div class="col-lg-4 col-md-4 mt-4 mt-sm-0">
-                <div class="card bg-gradient-dark move-on-hover">
-                  <div class="card-body">
-                    <div class="d-flex">
-                      <h5 class="mb-0 text-white">les parcels </h5>
-                      <div class="ms-auto">
-                        <h1 class="text-white text-end mb-0 mt-n2">{{parcels|length}}</h1>
-                        <p class="text-sm mb-0 text-white">parcel</p>
-                      </div>
-                    </div>
-                    {% for parcel in parcels %}
-                    <p class="text-white mb-0"> {{parcel.name}} </p>
-                    {% endfor %}
-                  </div>
-                  <a href="javascript:;" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
-                    <i class="fas fa-chevron-down text-white"></i>
-                  </a>
-                </div>
-
-              </div>
+            <div class="row mt-4"id="bod">
+              
             </div>
+
+          </div>
+          <div class="col mt-4 pt-md-10 pt-lg-10 mb-4 mt-sm-0">
+            <div class="card bg-gradient-dark move-on-hover">
+              <div class="card-body">
+                <div class="d-flex">
+                  <h5 class="mb-0 text-white">les parcels </h5>
+                  <div class="ms-auto">
+                    <h1 class="text-white text-end mb-0 mt-n2">{{parcels|length}}</h1>
+                    <p class="text-sm mb-0 text-white">parcel</p>
+                  </div>
+                </div>
+                {% for parcel in parcels %}
+                <p class="text-white mb-0"> {{parcel.name}} </p>
+                {% endfor %}
+              </div>
+              <a href="javascript:;" class="w-100 text-center py-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Show More">
+                <i class="fas fa-chevron-down text-white"></i>
+              </a>
+            </div>
+
           </div>
         </div>
       </div>
@@ -74,7 +66,7 @@
       .then(data => { 
           console.log(data);
           console.log(data.current_weather);
-          document.getElementById("temp").innerHTML=data.current_weather.temperature+" "+data.hourly_units.temperature_2m;
+          document.getElementById("temp").innerHTML=data.current_weather.temperature+"<span> "+data.hourly_units.temperature_2m;
     
       });
     
@@ -91,15 +83,22 @@
   .then(response => response.json())
   .then(data => {
     data.valeurs.forEach(datum => {
-      not= `
-      <div class="d-flex"       href="http://127.0.0.1:8000/sparcels/sparcel/${datum.onclick}"
-      >
-        <h6 class="mb-0 me-3">${datum.date.slice(15,20)}</h6>
-        <h6 class="mb-0">${datum.contenu}
-          <small class="text-secondary font-weight-normal">Hangouts</small>
-        </h6>
-      </div>   
-      <hr class="horizontal dark">
+      not= `<div class="col">
+        <div class="card move-on-hover overflow-hidden">
+          <div class="card-body" >
+            <div class="d-flex"       href="http://127.0.0.1:8000/sparcels/sparcel/${datum.onclick}"
+            >
+              <h6 class="mb-0 me-3">${datum.date.slice(15,20)}</h6>
+              <h6 class="mb-0">${datum.contenu}
+                <small class="text-secondary font-weight-normal">Hangouts</small>
+              </h6>
+            </div>   
+            <hr class="horizontal dark">
+          </div>
+          
+        </div>
+      </div>
+      
      
       `;        
       const li = document.createElement("li");  

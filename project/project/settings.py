@@ -91,11 +91,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# Base url to serve media files
-MEDIA_URL = '/img/'
-
-# Path where media is stored
-MEDIA_ROOT = os.path.join(BASE_DIR, 'img/')
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -130,8 +125,13 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
+# Base url to serve media files
+MEDIA_URL = '/img/'
+# Path where media is stored
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/img/')
+
 STATIC_ROOT=os.path.join(BASE_DIR, 'static')
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS=[
     os.path.join(BASE_DIR, 'project/static')
 ]
