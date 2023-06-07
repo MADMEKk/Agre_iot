@@ -22,7 +22,6 @@ class notification(models.Model):
     
 class Profile(models.Model):   
     mobile =models.CharField(max_length=10)
-    nakwa =models.CharField(max_length=10)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     agrecardid = models.CharField(max_length=500)
     image = models.ImageField(null=True,blank=True)  
