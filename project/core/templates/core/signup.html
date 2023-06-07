@@ -23,6 +23,7 @@
             <div class="card-body">
               <form method="post" action="." role="form text-left">
                 {% csrf_token %}
+                
                 <div class="mb-3">
                   <input type="text" name="first_name" class="form-control" placeholder="first_name" aria-label="first_name" aria-describedby="first_name">
                 </div>
@@ -41,6 +42,7 @@
                 <div class="mb-3">
                     <input type="password" name="password2" class="form-control" placeholder="Repeter password" aria-label="Password2" aria-describedby="password-addon">
                   </div>
+                  
             
                 <div class="text-center">
                   <button type="submit" Name="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
@@ -50,22 +52,27 @@
                 <p class="text-sm mt-3 mb-0">Already have an account? <a href="/login/" class="text-dark font-weight-bolder">Sign in</a></p>
               </form>
             </div>
-            <div class="col">
-
-              {% if form.errors %}
-              {% for field in form %}
-                  {% for error in field.errors %} 
-                      <div class="mb-5 p-4 rounded-xl bg-red-300 text-white">
-                          <p>{{ error|escape }}</p>
-                      </div>
-                  {% endfor %}
-              {% endfor %}
-          {% endif %}
-            </div>
-          </div>
+           
         </div>
         
       </div>
+      <div class="col-xl-4 col-lg-5 col-md-7 ">
+
+        {% if form.errors %}
+          {% for field in form %}
+              {% for error in field.errors %}
+                  <div class="alert alert-danger">
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+              <div class="alert alert-danger">
+                  <strong>{{ error|escape }}</strong>
+              </div>
+          {% endfor %}
+      {% endif %}
+    </div>
     </div>
   </section>
 
