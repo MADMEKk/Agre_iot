@@ -72,9 +72,16 @@ def cree_profile(request):
         
         form = CreeProfileForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            profile =  Profile(
+                    mobile =form.cleaned_data["mobile"],
+                    user = request.user,
+                    agrecardid = form.cleaned_data["agrecardid"],
+                    image =  form.cleaned_data["image"],
+                    
+            )
+            profile.save()
             context = {'status': 'success'}
-            return JsonResponse(context)
+            return redirect("panel:profile")
         else:  return JsonResponse({'status': 'failed'})
     else :
         form = CreeProfileForm()

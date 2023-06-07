@@ -8,7 +8,7 @@ class CreeParcelForm(ModelForm):
 class CreeProfileForm(ModelForm):
     class Meta:
         model = Profile
-        fields = '__all__'
+        fields = ['mobile','agrecardid','image']
 class creeSparceleForm(ModelForm):
     def __init__(self, user, *args, **kwargs):
         super(creeSparceleForm, self).__init__(*args, **kwargs)
