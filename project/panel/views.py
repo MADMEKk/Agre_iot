@@ -67,18 +67,26 @@ def cree_parcel(request):
 @login_required
 @method_decorator(csrf_exempt, name='dispatch')
 def cree_profile(request):
-    
+    profile = request.user.profile
     if request.method == 'POST':
         
-        form = CreeProfileForm(request.POST, request.FILES)
+        form = CreeProfileForm(request.POST, request.FILES,instance=profile)
         if form.is_valid():
-            profile =  Profile(
-                    mobile =form.cleaned_data["mobile"],
-                    user = request.user,
-                    agrecardid = form.cleaned_data["agrecardid"],
-                    image =  form.cleaned_data["image"],
-                    
-            )
+            pr = request.user.id
+            if(Profile.objects.filter(user=pr).count()>0):
+                profile= request.user.profile
+                profile.mobile =form.cleaned_data["mobile"]
+                profile.agrecardid = form.cleaned_data["agrecardid"]
+                profile.image =  form.cleaned_data["image"]
+            
+            else:
+                profile =  Profile(
+                        mobile =form.cleaned_data["mobile"],
+                        user = request.user,
+                        agrecardid = form.cleaned_data["agrecardid"],
+                        image =  form.cleaned_data["image"],
+                        
+                )
             profile.save()
             context = {'status': 'success'}
             return redirect("panel:profile")

@@ -15,9 +15,18 @@ def signup(request):
         form = SignUpForm(request.POST)
 
         if form.is_valid():
-            user = form.save()
+            pr = request.user.id
+            if(user.objects.filter(pk=pr).count()>0):
+                user=request.user
+                user.first_name =form.cleaned_data["first_name"]
+                user.last_name =form.cleaned_data["last_name"]
+                user.email =form.cleaned_data["email"]
+                user.username =form.cleaned_data["username"]
+                user.save()
+            else :
+                user = form.save()
 
-            login(request, user)
+                login(request, user)
 
             return redirect('panel:frontpage')
     else:
