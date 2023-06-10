@@ -1,6 +1,6 @@
 from django.shortcuts import render
-
-from django.contrib.auth import login
+from django.contrib.auth.models import User
+from django.contrib.auth import login 
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from .forms import SignUpForm
@@ -16,7 +16,7 @@ def signup(request):
 
         if form.is_valid():
             pr = request.user.id
-            if(user.objects.filter(pk=pr).count()>0):
+            if(User.objects.filter(pk=pr).count()>0):
                 user=request.user
                 user.first_name =form.cleaned_data["first_name"]
                 user.last_name =form.cleaned_data["last_name"]

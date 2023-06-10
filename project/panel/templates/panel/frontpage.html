@@ -4,6 +4,7 @@
 
 {% block title %}Welcome | {% endblock %}
 {% block activelnk1 %}active{% endblock activelnk1 %}
+{% block paneltitle %}ACCUEIL{% endblock paneltitle %}
 {% block content %}
 
 <div class="border-radius-xl mt-3 mx-3 position-relative" style="background-image: url('{% static 'img/vr-bg.jpg'%}') ; background-size: cover;">
@@ -11,16 +12,44 @@
   <main class="main-content mt-1 border-radius-lg">
     <div class="section min-vh-85 position-relative transform-scale-0 transform-scale-md-7">
       <div class="container">
+        <div class="row p-0">
+          <div class=" col-12 row">
+            <div class="col-4">
+              <img class="w-25 float-end " src="{% static 'img/small-logos/placeholder.png'%}" alt="image sun">
+            
+            </div>
+            <div class="col ">
+              <h2 class="  text-white" id="city">Oran </h2>
+              <h5 class="  text-white" id="date">20  </h5>
+
+            </div>
+            
+          </div>
+          
         <div class="row pt-6 ">
+        
           <div class="col-lg-8 col-md-11">
-            <div class="d-flex">
-              <div class="me-0">
-                <h1 class="display-1 font-weight-bold mt-n4 mb-0 text-white" id="temp">20</h1>
-                <h6 class="text-uppercase mb-0 ms-1 text-white">Cloudy</h6>
+            <div class="row p-0">
+              <div class=" col-6 row">
+                <div class="col ">
+                  <img class="w-50 float-end " src="{% static 'img/small-logos/icon-sun-cloud.png'%}" alt="image sun">
+                </div>
+                <div class="col ">
+                  <h3 class="  text-white" id="temp">20 C </h3>
+                  <h6 class="text-uppercase mb-0 ms-1 text-white">Cloudy</h6>
+                </div>
+                
               </div>
-              <div class="ms-0">
-                <img class="w-50 float-end mt-lg-n4" src="{% static 'img/small-logos/icon-sun-cloud.png'%}" alt="image sun">
+              <div class=" col-6 row ">
+                <div class="col ">
+                  <img class="w-50 float-end mt-lg-n4" src="{% static 'img/small-logos/wind-socket.png'%}" alt="image sun">
+                </div>
+                <div class="col ">
+                  <h3 class="  text-white" id="windspd">20  </h3>
+                </div>
+                
               </div>
+
             </div>
             <div class="row mt-4"id="bod">
             </div>
@@ -62,7 +91,17 @@
       .then(data => { 
           console.log(data);
           console.log(data.current_weather);
-          document.getElementById("temp").innerHTML=data.current_weather.temperature+"<span> "+data.hourly_units.temperature_2m;
+          document.getElementById("temp").innerHTML=data.current_weather.temperature+" "+data.hourly_units.temperature_2m;
+            document.getElementById("windspd").innerHTML=data.current_weather.windspeed;
+            document.getElementById("date").innerHTML=data.current_weather.time.slice(0,10);
+    
+      });
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`)
+      .then(response => response.json())
+      .then(data => { 
+          console.log(data);
+          console.log(data.current_weather);
+          document.getElementById("city").innerHTML=data.address.city;
     
       });
     
@@ -86,7 +125,7 @@
             >
               <h6 class="mb-0 me-3">${datum.date.slice(15,20)}</h6>
               <h6 class="mb-0">${datum.contenu}
-                <small class="text-secondary font-weight-normal">Hangouts</small>
+                
               </h6>
             </div>   
             <hr class="horizontal dark">
