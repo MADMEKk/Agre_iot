@@ -21,14 +21,17 @@
           <div class="card z-index-0 bg-light">
            
             <div class="card-body">
+              <div class="mb-3">
+                <input type="text" name="agriculteur cart ID" class="form-control" placeholder="agriculteur cart ID" aria-label="agriculteur cart ID" aria-describedby="agriculteur cart ID">
+              </div>
               <form method="post" action="." role="form text-left">
                 {% csrf_token %}
                 
                 <div class="mb-3">
-                  <input type="text" name="first_name" class="form-control" placeholder="first_name" aria-label="first_name" aria-describedby="first_name">
+                  <input type="text" name="first_name" class="form-control" placeholder="Nom" aria-label="first_name" aria-describedby="first_name">
                 </div>
                 <div class="mb-3">
-                  <input type="text" name="last_name" class="form-control" placeholder="last_name" aria-label="last_name" aria-describedby="last_name">
+                  <input type="text" name="last_name" class="form-control" placeholder="Prenom" aria-label="last_name" aria-describedby="last_name">
                 </div>
                 <div class="mb-3">
                   <input type="text" name="email" class="form-control" placeholder="email" aria-label="email" aria-describedby="email">

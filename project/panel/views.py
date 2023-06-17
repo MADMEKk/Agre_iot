@@ -67,10 +67,10 @@ def cree_parcel(request):
 @login_required
 @method_decorator(csrf_exempt, name='dispatch')
 def cree_profile(request):
-    profile = request.user.profile
+    
     if request.method == 'POST':
-        
-        form = CreeProfileForm(request.POST, request.FILES,instance=profile)
+       
+        form = CreeProfileForm(request.POST, request.FILES)
         if form.is_valid():
             pr = request.user.id
             if(Profile.objects.filter(user=pr).count()>0):
