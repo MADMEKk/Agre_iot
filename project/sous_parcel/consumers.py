@@ -91,7 +91,7 @@ def send_sensor_data(capter_id,sparcel_id,user_id):
             while True:
                 # Generate some fake sensor data
                 capter= capteur.objects.get(pk=capter_id)
-                value = round(random.randint(29.0, 40.0), 2)
+                value = round(random.randint(8.0, 50.0), 2)
                 température = round(random.randint(10.0, 60.0), 2)
                 voltage = round(random.randint(20.0, 30.0), 2)
                 if(value>=val_max or value <= val_min):

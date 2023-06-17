@@ -178,14 +178,13 @@
 <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
 <script>
   // All the code for the leaflet map will come here
-const map = L.map('map').setView([51.505, -0.09], 11);
+const map = L.map('map').setView([35.698894, -0.650763], 14);
 const basemaps = {
     StreetView: L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',   {attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}),
     Topography: L.tileLayer.wms('http://ows.mundialis.de/services/service?',   {layers: 'TOPO-WMS'}),
     Places: L.tileLayer.wms('http://ows.mundialis.de/services/service?', {layers: 'OSM-Overlay-WMS'})
   };
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors' }).addTo(map);
-  const marker1 = L.marker([-37.699450, 176.279420]).bindPopup('Turquoise Bay Exmouth, Australia').addTo(map);
 
   L.control.layers(basemaps).addTo(map);
   basemaps.StreetView.addTo(map);
